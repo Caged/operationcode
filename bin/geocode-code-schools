@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+#
+# Primarily a one-off script to quickly get lat/lon locations for code schools from the Mapzen
+# search API.
+#
+# Usage:
+#   MAPZEN_KEY=your-key ./bin/geocode-code-schools
+#
+#
+require 'yaml'
+require 'json'
+require 'uri'
+require 'net/http'
+
+MAPZEN_URL = 'http://search.mapzen.com/v1/search'
+MAPZEN_KEY = ENV.fetch('MAPZEN_KEY') do
+  puts "Please set environment variable MAPZEN_KEY.  Get a key https://mapzen.com/developers"
+  exit 1
+end
+
+updated_schools = []
+schools = YAML.load_file('config/code_schools.yml')
+
+schools.each do |s|
+  info = { text: "#{s['address1']} #{s['address2']} #{s['city']}, #{s['state']} #{s['zip']}",
+           api_key: MAPZEN_KEY }
+  uri = URI("#{MAPZEN_URL}?#{URI.encode_www_form(info)}")
+
+  begin
+    response = Net::HTTP.get(uri)
+    json_data = JSON.parse(response)
+    lon, lat = json_data['features'][0]['geometry']['coordinates']
+    updated_schools << s.merge(lat: lat, lon: lon)
+  rescue Exception => e
+    puts "Couldn't parse #{uri}. Error: #{e}"
+    puts "#{response}"
+  end
+end
+
+File.open('config/code_schools_geo.yml', 'w') { |f| f << updated_schools.to_yaml }
