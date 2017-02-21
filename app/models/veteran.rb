@@ -61,4 +61,12 @@ class Veteran < ActiveRecord::Base
     MenteeMailer.welcome(mentor: mentor, mentee: self).deliver_later
     update_attributes(welcomed: true, mentor: mentor)
   end
+
+  def as_json(options = {})
+    {
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: [longitude, latitude] },
+      properties: { first_name: first_name }
+    }
+  end
 end
