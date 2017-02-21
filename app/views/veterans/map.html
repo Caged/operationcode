@@ -1,4 +1,2 @@
 <h1>Veteran Map</h1>
-
-<%= content_tag 'div', nil, id: :'veterans-map', class: :'veterans-map', data: { lat_longs: @lat_longs } %>
-
+<div id="veterans-map" class="js-map page-map" data-url="<%= veterans_map_path %>"></div>

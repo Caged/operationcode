@@ -2,7 +2,12 @@ class VeteransController < ApplicationController
   before_action :authenticate_veteran!, except: [:map]
 
   def map
-    @lat_longs = Veteran.lat_longs
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: { type: 'FeatureCollection', features: Veteran.all }
+      end
+    end
   end
 
   def claim
