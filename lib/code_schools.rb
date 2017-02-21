@@ -21,7 +21,7 @@ class CodeSchools
     schools_by_state.sort.to_h
   end
 
-  def as_geojson
+  def as_json(options = {})
     features = @code_schools.map do |school|
       lat = school.delete('lat')
       lon = school.delete('lon')

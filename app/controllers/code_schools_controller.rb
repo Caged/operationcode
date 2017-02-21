@@ -12,7 +12,7 @@ class CodeSchoolsController < ApplicationController
     schools = CodeSchools.new
     respond_to do |format|
       format.html
-      format.json { render json: schools.as_geojson }
+      format.json { render json: schools }
     end
   end
 end
