@@ -27,7 +27,7 @@ class CodeSchools
       lon = school.delete('lon')
       {
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [lat, lon] },
+        geometry: { type: 'Point', coordinates: [lon, lat] },
         properties: school
       }
     end
