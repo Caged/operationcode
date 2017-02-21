@@ -2,7 +2,7 @@ class CodeSchools
   # TODO: A great project would be to take each one of these schools
   # and instantiate them as an object (CodeSchool). We could then move
   # most of the logic in the view into that class.
-  def initialize(config = Rails.root + 'config/code_schools.yml')
+  def initialize(config = Rails.root + 'config/code_schools_geo.yml')
     raise unless File.exist? config
     @code_schools = YAML.load_file(config)
   end
