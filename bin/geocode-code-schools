@@ -30,7 +30,7 @@ schools.each do |s|
     response = Net::HTTP.get(uri)
     json_data = JSON.parse(response)
     lon, lat = json_data['features'][0]['geometry']['coordinates']
-    updated_schools << s.merge(lat: lat, lon: lon)
+    updated_schools << s.merge('lat' => lat, 'lon' => lon)
   rescue Exception => e
     puts "Couldn't parse #{uri}. Error: #{e}"
     puts "#{response}"
