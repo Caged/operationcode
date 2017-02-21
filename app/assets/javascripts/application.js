@@ -15,3 +15,4 @@
 //= require bootstrap
 //= require leaflet
 //= require veterans
+//= require map
