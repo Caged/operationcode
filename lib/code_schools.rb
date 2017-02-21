@@ -20,4 +20,18 @@ class CodeSchools
     end
     schools_by_state.sort.to_h
   end
+
+  def as_geojson
+    features = @code_schools.map do |school|
+      lat = school.delete('lat')
+      lon = school.delete('lon')
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [lat, lon] },
+        properties: school
+      }
+    end
+
+    { type: 'FeatureCollection', features: features }
+  end
 end
