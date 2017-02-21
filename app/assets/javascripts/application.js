@@ -14,5 +14,4 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require leaflet
-//= require veterans
 //= require map
