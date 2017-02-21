@@ -39,6 +39,8 @@ Rails.application.routes.draw do
 
   # Static pages
   get '/code_schools', to: 'code_schools#index'
+  get '/code_schools/map', to: 'code_schools#map', as: :code_schools_map
+
 
   get 'about' => 'pages#about'
   get 'amazon' => redirect('https://smile.amazon.com/ch/47-4247572')
